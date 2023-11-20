@@ -3,6 +3,20 @@
 <head>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧮</text></svg>">
     <title>Dataverse Records Counter</title>
+    <meta itemprop="name" content="Dataverse Records Counter">
+    <meta name="description" content="Dataverse Record Counter is a quick browser based alternative for XrmToolBox plugins like Fast Record Counter, FetchXml Record Counter for Developers">
+    <meta name="keywords" content="Dataverse Rows Counter,Dataverse Record Counter,Dynamics Record Counter,Fast Record Counter, XrmToolBox">
+    <meta itemprop="image" content="https://www.ashishvishwakarma.com/DataverseRowsCounter/DataverseRowsCounter.webp">
+    <meta property="og:url" content="https://www.ashishvishwakarma.com/DataverseRowsCounter">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Dataverse Records Counter">
+    <meta property="og:description" content="Dataverse Record Counter is a quick browser based alternative for XrmToolBox plugins like Fast Record Counter, FetchXml Record Counter for Developers">
+    <meta property="og:image" content="https://www.ashishvishwakarma.com/DataverseRowsCounter/DataverseRowsCounter.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dataverse Records Counter">
+    <meta name="twitter:description" content="Dataverse Record Counter is a quick browser based alternative for XrmToolBox plugins like Fast Record Counter, FetchXml Record Counter for Developers">
+    <meta name="twitter:image" content="https://www.ashishvishwakarma.com/DataverseRowsCounter/DataverseRowsCounter.webp">
+    <meta name="author" content="Ashish Vishwakarma">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
@@ -42,6 +56,13 @@
             line-height: 4.5rem;
             padding: 0 2rem;
         }
+
+        .entity-name {
+            padding-left: 8px;
+            padding-right: 10px;
+            margin-right: 10px;
+            text-transform: none;
+        }
     </style>
 </head>
 <body>
@@ -53,28 +74,7 @@
             <input id="orgURL" type="url" placeholder="enter dataverse environment url here eg. https://myenv.crm8.dynamics.com" />
         </div>
         <div class="tags-input">
-            <ul id="tags">
-                <li><button class="button-large button-outline entity-name" data-name="account" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>account</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="contact" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>contact</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="systemuser" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>systemuser</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="annotation" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>annotation</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="environmentvariablevalue" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>environmentvariablevalue</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="environmentvariabledefinition" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>environmentvariabledefinition</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="asyncoperation" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>asyncoperation</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="opportunity" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>opportunity</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="incident" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>incident</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="lead" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>lead</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="activitymimeattachment" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>activitymimeattachment</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="quote" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>quote</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="order" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>order</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="invoice" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>invoice</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="template" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>template</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="workflow" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>workflow</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="savedquery" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>savedquery</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="userquery" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>userquery</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="transactioncurrency" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>transactioncurrency</button></li>
-                <li><button class="button-large button-outline entity-name" data-name="customeraddress" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>customeraddress</button></li>
-            </ul>
+            <ul id="tags"></ul>
             <input type="text" id="input-tag" placeholder="enter table schema names here & enter to add more tables" />
         </div>
         <hr />
@@ -83,7 +83,7 @@
     <script>
         var orgURL = document.querySelector("#orgURL");
         var entities = new Set();
-        ["account", "contact", "activitymimeattachment", "opportunity", "incident", "lead", "quote", "order", "invoice", "template", "workflow", "savedquery", "userquery", "systemuser", "transactioncurrency", "customeraddress", "annotation", "environmentvariablevalue", "environmentvariabledefinition", "asyncoperation"].forEach(e => { entities.add(e) });
+        ["account", "contact", "email", "activitymimeattachment", "opportunity", "incident", "lead", "quote", "order", "invoice", "template", "workflow", "savedquery", "userquery", "systemuser", "transactioncurrency", "customeraddress", "annotation", "environmentvariablevalue", "environmentvariabledefinition", "asyncoperation"].forEach(e => { entities.add(e) });
 
         const tags = document.getElementById('tags');
         const input = document.getElementById('input-tag');
@@ -91,10 +91,13 @@
         if (localStorage.getItem("orgURL") !== null)
             orgURL.value = localStorage.getItem("orgURL");
 
-        if (localStorage.getItem("counterEntities") !== null) {
-            let entityList = JSON.parse(localStorage.getItem("counterEntities"));
-            entityList.forEach(e => (restoreEntity(e)));
+        if (localStorage.getItem("counterEntities") === null) {
+            localStorage.setItem("counterEntities", JSON.stringify(Array.from(entities)));
         }
+
+        let entityList = JSON.parse(localStorage.getItem("counterEntities"));
+        entityList.forEach(e => (restoreEntity(e)));
+
 
         input.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
@@ -127,7 +130,7 @@
         };
 
         function prepareEntityButton(entityName) {
-            return `<button class="button-large button-outline entity-name" data-name="${entityName}" style="padding-left:8px;padding-right:10px;margin-right:10px;text-transform: lowercase"><span style="padding-right: 5px" class="delete-button">✖</span>${entityName}</button>`;
+            return `<button class="button-large button-outline entity-name" data-name="${entityName}"><span style="padding-right: 5px" class="delete-button">✖</span>${entityName}</button>`;
         }
 
         function addEntity(entityName) {
@@ -141,12 +144,9 @@
         }
 
         function restoreEntity(entityName) {
-            if (!entities.has(entityName)) {
-                const tag = document.createElement('li');
-                tag.innerHTML += prepareEntityButton(entityName);
-                tags.appendChild(tag);
-                entities.add(entityName);
-            }
+            const tag = document.createElement('li');
+            tag.innerHTML += prepareEntityButton(entityName);
+            tags.appendChild(tag);
         }
 
         function deleteEntity(entityName) {
@@ -182,8 +182,12 @@
             if (url.includes("://")) {
                 domain = url.split('://')[1];
             }
-            const subdomain = domain.split('.')[0];
-            return subdomain;
+            let subdomain = domain.split('.')[0];
+            return subdomain.replaceAll('-', '_');
+        }
+
+        function getCountColumn(entityName) {
+            return "createdon";
         }
 
         function runCount(entityName) {
@@ -191,10 +195,10 @@
                 alert("Please enter a valid organization URL then retry.");
             else {
                 let pluralName = getPlural(entityName);
-                let idColumn = entityName + "id";
+                let countColumn = getCountColumn(entityName);
                 let orgName = getSubdomain(orgURL.value);
 
-                let query = `/api/data/v9.2/${pluralName}?fetchXml=<fetch mapping="logical" distinct="false" aggregate="true"><entity name="${entityName}"><attribute name="${idColumn}" alias="${pluralName}_count_in_${orgName}_instance" aggregate="count"/></entity></fetch>`;
+                let query = `/api/data/v9.2/${pluralName}?fetchXml=<fetch mapping="logical" distinct="false" aggregate="true"><entity name="${entityName}"><attribute name="${countColumn}" alias="${pluralName}_count_in_${orgName}_instance" aggregate="count"/></entity></fetch>`;
 
                 window.open(orgURL.value + query, '_blank');
             }
