@@ -189,6 +189,7 @@
         }
 
         function getCountColumn(entityName) {
+            if (entityName === "activitymimeattachment") return "activitymimeattachmentid";
             return "createdon";
         }
 
