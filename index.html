@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <link rel="stylesheet" href="https://unpkg.com/balloon-css/balloon.min.css">
     <style>
         .tags-input ul {
             list-style: none;
@@ -85,7 +86,7 @@
     <script>
         var orgURL = document.querySelector("#orgURL");
         var entities = new Set();
-        ["account", "contact", "email", "activitymimeattachment", "opportunity", "incident", "lead", "quote", "order", "invoice", "template", "workflow", "savedquery", "userquery", "systemuser", "transactioncurrency", "customeraddress", "annotation", "environmentvariablevalue", "environmentvariabledefinition", "asyncoperation"].forEach(e => { entities.add(e) });
+        ["account", "contact", "email", "activitymimeattachment", "opportunity", "incident", "lead", "template", "workflow", "savedquery", "systemuser", "transactioncurrency", "customeraddress", "annotation", "environmentvariablevalue", "environmentvariabledefinition", "asyncoperation"].forEach(e => { entities.add(e) });
 
         const tags = document.getElementById('tags');
         const input = document.getElementById('input-tag');
@@ -113,7 +114,11 @@
         tags.addEventListener('click', function (event) {
             if (event.target.classList.contains('entity-name')) {
                 runCount(event.target.dataset.name);
-            } if (event.target.classList.contains('delete-button')) {
+            }
+            if (event.target.classList.contains('snapshot-count')) {
+                runSnapshotCount(event.target.parentNode.dataset.name);
+            }
+            if (event.target.classList.contains('delete-button')) {
                 deleteEntity(event.target.parentNode.dataset.name);
                 event.target.parentNode.remove();
             }
@@ -132,7 +137,7 @@
         };
 
         function prepareEntityButton(entityName) {
-            return `<button class="button-large button-outline entity-name" data-name="${entityName}"><span style="padding-right: 5px" class="delete-button">✖</span>${entityName}</button>`;
+            return `<button class="button-large button-outline entity-name" data-name="${entityName}"><span style="padding-right: 5px" class="delete-button">✖</span>${entityName}<span style="padding-left: 2px" class="snapshot-count" aria-label="In case of 50K+ rows click here to retrieve count from last snapshot." data-balloon-pos="down">📷</span></button>`;
         }
 
         function addEntity(entityName) {
@@ -202,6 +207,16 @@
                 let orgName = getSubdomain(orgURL.value);
 
                 let query = `/api/data/v9.2/${pluralName}?fetchXml=<fetch mapping="logical" distinct="false" aggregate="true"><entity name="${entityName}"><attribute name="${countColumn}" alias="${pluralName}_count_in_${orgName}_instance" aggregate="count"/></entity></fetch>`;
+
+                window.open(orgURL.value + query, '_blank');
+            }
+        }
+
+        function runSnapshotCount(entityName) {
+            if (!isValidURL(orgURL.value) || orgURL.value === null)
+                alert("Please enter a valid organization URL then retry.");
+            else {
+                let query = `/api/data/v9.2//RetrieveTotalRecordCount(EntityNames=['${entityName}'])`;
 
                 window.open(orgURL.value + query, '_blank');
             }
