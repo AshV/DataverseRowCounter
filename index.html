@@ -86,7 +86,23 @@
     <script>
         var orgURL = document.querySelector("#orgURL");
         var entities = new Set();
-        ["account", "contact", "email", "activitymimeattachment", "opportunity", "incident", "lead", "template", "workflow", "savedquery", "systemuser", "transactioncurrency", "customeraddress", "annotation", "environmentvariablevalue", "environmentvariabledefinition", "asyncoperation"].forEach(e => { entities.add(e) });
+        [
+            "account",
+            "contact",
+            "email",
+            "annotation",
+            "team",
+            "phonecall",
+            "template",
+            "workflow",
+            "savedquery",
+            "systemuser",
+            "annotation",
+            "asyncoperation",
+            "opportunity",
+            "lead",
+            "incident",
+        ].forEach(e => { entities.add(e) });
 
         const tags = document.getElementById('tags');
         const input = document.getElementById('input-tag');
@@ -163,17 +179,13 @@
 
         function isValidURL(str) {
             regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
-            if (regexp.test(str)) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return regexp.test(str);
         }
 
         function getPlural(entityName) {
             let pluralName = entityName;
-            if (entityName.endsWith("s")) {
+
+            if (entityName.endsWith("s") || entityName.endsWith("x")) {
                 pluralName = entityName + "es";
             } else if (entityName.endsWith("y")) {
                 entityName = entityName.slice(0, -1);
@@ -181,6 +193,7 @@
             } else {
                 pluralName = entityName + "s";
             }
+
             return pluralName;
         }
 
@@ -194,8 +207,10 @@
         }
 
         function getCountColumn(entityName) {
-            if (entityName === "activitymimeattachment") return "activitymimeattachmentid";
-            return "createdon";
+            if (["email", "letter", "fax", "phonecall", "appointment"].includes(entityName))
+                return "createdon";
+
+            return entityName + "id";
         }
 
         function runCount(entityName) {

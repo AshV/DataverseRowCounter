@@ -1,0 +1,42 @@
+{
+  "common": [
+    "account",
+    "contact",
+    "systemuser",
+    "team",
+    "businessunit"
+  ],
+  "activity": [
+    "activitypointer",
+    "email",
+    "phonecall",
+    "fax",
+    "letter",
+    "post",
+    "task"
+  ],
+  "system": [
+    "annotation",
+    "template",
+    "asyncoperation",
+    "workflow",
+    "savedquery"
+  ],
+  "sales": [
+    "lead",
+    "opportunity",
+    "quote",
+    "order",
+    "salesorder",
+    "invoice",
+    "invoicedetail"
+  ],
+  "service": [
+    "incident"
+  ],
+  "marketing": [
+    "campaign",
+    "list"
+  ],
+  "fieldservice": []
+}
