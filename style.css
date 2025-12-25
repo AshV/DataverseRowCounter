@@ -1,0 +1,305 @@
+:root {
+    /* Default: Light Theme (PowerApps) */
+    --primary-color: #742774;
+    /* PowerApps Purple */
+    --primary-variant: #5d1f5d;
+    --secondary-color: #0078d4;
+    /* Fluent Blue */
+    --background-color: #f3f2f1;
+    /* Fluent Gray */
+    --surface-color: #ffffff;
+    --error-color: #a80000;
+    --on-primary: #ffffff;
+    --on-background: #323130;
+    --on-surface: #323130;
+    --font-family: 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+    --spacing-unit: 8px;
+    --border-radius: 4px;
+    --transition-speed: 0.2s;
+    --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --border-color: #d1d1d1;
+    --gradient-title: linear-gradient(90deg, #742774, #b4a0ff);
+}
+
+[data-theme="dark"] {
+    --primary-color: #d696ea;
+    --primary-variant: #742774;
+    --secondary-color: #7f85f5;
+    --background-color: #121212;
+    --surface-color: #252423;
+    --error-color: #f1707b;
+    --on-primary: #ffffff;
+    --on-background: #ffffff;
+    --on-surface: #ffffff;
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --gradient-title: linear-gradient(90deg, #d696ea, #7f85f5);
+}
+
+body {
+    background: var(--background-color);
+    color: var(--on-background);
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    align-items: flex-start;
+    /* Align top for better scrolling on mobile */
+    padding-top: 5vh;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.container {
+    max-width: 800px;
+    width: 90%;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--surface-color);
+    /* Remove glassmorphism for default/light, add back optionally or keep solid for PowerApps feel */
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+h1.title {
+    font-weight: 600;
+    /* Segoe UI Semibold */
+    margin-bottom: 2rem;
+    text-align: center;
+    background: var(--gradient-title);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--on-background);
+    transition: transform var(--transition-speed);
+}
+
+.theme-toggle:hover {
+    transform: rotate(15deg);
+}
+
+.validation-msg {
+    color: var(--error-color);
+    font-size: 0.9rem;
+    margin-top: 5px;
+    height: 1.2rem;
+    /* Reserve space */
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+}
+
+.validation-msg.show {
+    opacity: 1;
+}
+
+input[type="url"].error,
+input[type="text"].error {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 1px var(--error-color);
+}
+
+.highlight {
+    /* Gradient handled by h1.title now, but keeping for structural fallback */
+    color: inherit;
+}
+
+.input-group {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+input[type="url"],
+input[type="text"] {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: var(--surface-color);
+    border: 1px solid #8a8886;
+    /* Fluent styling */
+    border-radius: var(--border-radius);
+    color: var(--on-surface);
+    font-size: 14px;
+    /* Fluent standard */
+    transition: all var(--transition-speed);
+    box-sizing: border-box;
+}
+
+input[type="url"]:focus,
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    border-bottom-width: 2px;
+    /* Fluent focus style */
+}
+
+.tags-input {
+    width: 100%;
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    border: 1px solid #333;
+}
+
+.tags-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag-item {
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.button-tag {
+    background-color: var(--primary-color);
+    border: 1px solid transparent;
+    color: var(--on-primary);
+    border-radius: var(--border-radius);
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    outline: none;
+    align-self: flex-start;
+    z-index: 2;
+}
+
+.button-tag:hover {
+    background-color: var(--primary-variant);
+}
+
+.button-tag.expanded {
+    background-color: var(--primary-variant);
+    /* Active state branding */
+    color: white;
+}
+
+.delete-button {
+    font-weight: bold;
+    color: var(--error-color);
+    cursor: pointer;
+    font-size: 1.1em;
+    line-height: 1;
+}
+
+.delete-button:hover {
+    color: #ff8a80;
+}
+
+.snapshot-icon,
+.peacock-icon {
+    font-size: 1.1em;
+    cursor: pointer;
+    /* Changed to pointer for better UX */
+    padding: 0 2px;
+    transition: transform 0.2s;
+}
+
+.snapshot-icon:hover,
+.peacock-icon:hover {
+    transform: scale(1.2);
+}
+
+.options-panel {
+    display: none;
+    flex-direction: column;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 4px 0;
+    margin-top: 4px;
+    /* Gap between button and panel */
+    overflow: hidden;
+    z-index: 1;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: var(--card-shadow);
+}
+
+.tag-item.active .options-panel {
+    display: flex;
+    animation: slideDown 0.2s ease-out;
+}
+
+.tag-item.active .button-tag {
+    background-color: var(--primary-variant);
+    /* Active branding */
+    color: white;
+}
+
+.option-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    color: var(--on-surface);
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.option-item:hover {
+    background-color: rgba(187, 134, 252, 0.2);
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #333;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+.footer {
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tag-item {
+    animation: fadeIn 0.3s ease-out;
+}

@@ -1,241 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CGWJKN5SH2"></script>
-    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-CGWJKN5SH2');</script>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧮</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dataverse Record Counter</title>
-    <meta itemprop="name" content="Dataverse Record Counter">
-    <meta name="description" content="Dataverse Record Counter is a quick browser based alternative for XrmToolBox plugins like Fast Record Counter, FetchXml Record Counter for Developers">
-    <meta name="keywords" content="Dataverse Row Counter,Dataverse Record Counter,Dynamics Record Counter,Fast Record Counter, XrmToolBox">
-    <meta itemprop="image" content="https://www.ashishvishwakarma.com/DataverseRowCounter/DataverseRowCounter.webp">
+
+    <!-- Meta Tags -->
+    <meta name="description"
+        content="Dataverse Record Counter is a quick browser based alternative for XrmToolBox plugins like Fast Record Counter, FetchXml Record Counter for Developers">
+    <meta name="keywords"
+        content="Dataverse Row Counter,Dataverse Record Counter,Dynamics Record Counter,Fast Record Counter, XrmToolBox">
+    <meta name="author" content="Ashish Vishwakarma">
     <meta property="og:url" content="https://www.ashishvishwakarma.com/DataverseRowCounter">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Dataverse Record Counter">
-    <meta property="og:description" content="Dataverse Record Counter is a quick browser based alternative for XrmToolBox plugins like Fast Record Counter, FetchXml Record Counter for Developers">
+    <meta property="og:description"
+        content="Dataverse Record Counter is a quick browser based alternative for XrmToolBox plugins like Fast Record Counter, FetchXml Record Counter for Developers">
     <meta property="og:image" content="https://www.ashishvishwakarma.com/DataverseRowCounter/DataverseRowCounter.webp">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Dataverse Record Counter">
-    <meta name="twitter:description" content="Dataverse Record Counter is a quick browser based alternative for XrmToolBox plugins like Fast Record Counter, FetchXml Record Counter for Developers">
-    <meta name="twitter:image" content="https://www.ashishvishwakarma.com/DataverseRowCounter/DataverseRowCounter.webp">
-    <meta name="author" content="Ashish Vishwakarma">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧮</text></svg>">
+
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CGWJKN5SH2"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-CGWJKN5SH2');</script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/balloon-css/balloon.min.css">
-    <style>
-        .tags-input ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .tags-input li {
-            display: inline-block;
-        }
-
-        .tags-input input[type="text"] {
-            border: none;
-            outline: none;
-            padding: 5px;
-            font-size: 14px;
-        }
-
-            .tags-input input[type="text"]:focus {
-                outline: none;
-            }
-
-        .tags-input .delete-button {
-            background-color: transparent;
-            border: none;
-            color: #999;
-            cursor: pointer;
-            padding-left: 5px;
-        }
-
-        .button-large {
-            font-size: 1.4rem;
-            height: 4.5rem;
-            line-height: 4.5rem;
-            padding: 0 2rem;
-        }
-
-        .entity-name {
-            padding-left: 8px;
-            padding-right: 10px;
-            margin-right: 10px;
-            text-transform: none;
-        }
-    </style>
 </head>
+
 <body>
     <div class="container">
-        <br /> <br />
-        <h1 class="title" style="text-align:center"><font color="#9b4dca">(</font>Dataverse Row Counter<font color="#9b4dca">)</font></h1>
-        <br />
-        <div style="text-align:center">
-            <input id="orgURL" type="url" placeholder="enter dataverse environment url here eg. https://myenv.crm8.dynamics.com" />
+        <button id="theme-toggle" class="theme-toggle" title="Toggle Dark/Light Mode"
+            aria-label="Toggle Theme">🌓</button>
+        <h1 class="title"><span class="highlight">(</span>Dataverse Row Counter<span class="highlight">)</span></h1>
+
+        <div class="input-group">
+            <input id="orgURL" type="url"
+                placeholder="Enter Dataverse environment URL (e.g., https://myenv.crm.dynamics.com)"
+                aria-label="Organization URL" />
+            <div id="url-validation-msg" class="validation-msg"></div>
         </div>
+
         <div class="tags-input">
-            <ul id="tags"></ul>
-            <input type="text" id="input-tag" placeholder="enter table schema names here & enter to add more tables" />
+            <ul id="tags" class="tags-list">
+                <!-- Tags will be injected here by JS -->
+            </ul>
+            <input type="text" id="input-tag" placeholder="Type table name & press Enter..." aria-label="Add Entity"
+                style="margin-top: 10px;" />
         </div>
-        <hr />
-        <p style="text-align:center">Built with ❤️ by <a href="https://www.linkedin.com/in/ashishvishwakarma-ashv/">AshV</a></p>
+
+        <div class="footer">
+            <hr />
+            <p>Built with ❤️ by <a href="https://www.linkedin.com/in/ashishvishwakarma-ashv/" target="_blank">AshV</a>
+            </p>
+        </div>
     </div>
-    <script>
-        var orgURL = document.querySelector("#orgURL");
-        var entities = new Set();
-        [
-            "account",
-            "contact",
-            "email",
-            "annotation",
-            "team",
-            "phonecall",
-            "template",
-            "workflow",
-            "savedquery",
-            "systemuser",
-            "annotation",
-            "asyncoperation",
-            "opportunity",
-            "lead",
-            "incident",
-        ].forEach(e => { entities.add(e) });
 
-        const tags = document.getElementById('tags');
-        const input = document.getElementById('input-tag');
-
-        if (localStorage.getItem("orgURL") !== null)
-            orgURL.value = localStorage.getItem("orgURL");
-
-        if (localStorage.getItem("counterEntities") === null) {
-            localStorage.setItem("counterEntities", JSON.stringify(Array.from(entities)));
-        }
-
-        let entityList = JSON.parse(localStorage.getItem("counterEntities"));
-        entityList.forEach(e => (restoreEntity(e)));
-
-
-        input.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                const tagContent = input.value.trim();
-                input.value = '';
-                if (tagContent !== '') addEntity(tagContent);
-            }
-        });
-
-        tags.addEventListener('click', function (event) {
-            if (event.target.classList.contains('entity-name')) {
-                runCount(event.target.dataset.name);
-            }
-            if (event.target.classList.contains('snapshot-count')) {
-                runSnapshotCount(event.target.parentNode.dataset.name);
-            }
-            if (event.target.classList.contains('delete-button')) {
-                deleteEntity(event.target.parentNode.dataset.name);
-                event.target.parentNode.remove();
-            }
-        });
-
-        orgURL.onchange = function () {
-            if (orgURL.value.length === 0)
-                return;
-            if (isValidURL(orgURL.value)) {
-                var url = new URL(orgURL.value);
-                orgURL.value = url.origin;
-                localStorage.setItem("orgURL", orgURL.value);
-            } else {
-                alert("Please enter a valid orgnization URL.");
-            }
-        };
-
-        function prepareEntityButton(entityName) {
-            return `<button class="button-large button-outline entity-name" data-name="${entityName}"><span style="padding-right: 5px" class="delete-button">✖</span>${entityName}<span style="padding-left: 2px" class="snapshot-count" aria-label="In case of 50K+ rows click here to retrieve count from last snapshot." data-balloon-pos="down">📷</span></button>`;
-        }
-
-        function addEntity(entityName) {
-            if (!entities.has(entityName)) {
-                const tag = document.createElement('li');
-                tag.innerHTML += prepareEntityButton(entityName);
-                tags.appendChild(tag);
-                entities.add(entityName);
-                localStorage.setItem("counterEntities", JSON.stringify(Array.from(entities)));
-            }
-        }
-
-        function restoreEntity(entityName) {
-            const tag = document.createElement('li');
-            tag.innerHTML += prepareEntityButton(entityName);
-            tags.appendChild(tag);
-        }
-
-        function deleteEntity(entityName) {
-            entities.delete(entityName);
-            localStorage.setItem("counterEntities", JSON.stringify(Array.from(entities)));
-        }
-
-        function isValidURL(str) {
-            regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
-            return regexp.test(str);
-        }
-
-        function getPlural(entityName) {
-            let pluralName = entityName;
-
-            if (entityName.endsWith("s") || entityName.endsWith("x")) {
-                pluralName = entityName + "es";
-            } else if (entityName.endsWith("y")) {
-                entityName = entityName.slice(0, -1);
-                pluralName = entityName + "ies";
-            } else {
-                pluralName = entityName + "s";
-            }
-
-            return pluralName;
-        }
-
-        function getSubdomain(url) {
-            let domain = url;
-            if (url.includes("://")) {
-                domain = url.split('://')[1];
-            }
-            let subdomain = domain.split('.')[0];
-            return subdomain.replaceAll('-', '_');
-        }
-
-        function getCountColumn(entityName) {
-            if (["email", "letter", "fax", "phonecall", "appointment"].includes(entityName))
-                return "createdon";
-
-            return entityName + "id";
-        }
-
-        function runCount(entityName) {
-            if (!isValidURL(orgURL.value) || orgURL.value === null)
-                alert("Please enter a valid organization URL then retry.");
-            else {
-                let pluralName = getPlural(entityName);
-                let countColumn = getCountColumn(entityName);
-                let orgName = getSubdomain(orgURL.value);
-
-                let query = `/api/data/v9.2/${pluralName}?fetchXml=<fetch mapping="logical" distinct="false" aggregate="true"><entity name="${entityName}"><attribute name="${countColumn}" alias="${pluralName}_count_in_${orgName}_instance" aggregate="count"/></entity></fetch>`;
-
-                window.open(orgURL.value + query, '_blank');
-            }
-        }
-
-        function runSnapshotCount(entityName) {
-            if (!isValidURL(orgURL.value) || orgURL.value === null)
-                alert("Please enter a valid organization URL then retry.");
-            else {
-                let query = `/api/data/v9.2//RetrieveTotalRecordCount(EntityNames=['${entityName}'])`;
-
-                window.open(orgURL.value + query, '_blank');
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
+
 </html>
