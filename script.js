@@ -741,12 +741,39 @@ function updateThemeIcon(theme) {
     }
 }
 
+function closeNotice() {
+    const notice = document.getElementById('quickInfoNotice');
+    if (notice) {
+        notice.style.display = 'none';
+        localStorage.setItem('hideHelpNotice', 'true');
+    }
+}
+
+function toggleHelpNotice() {
+    const notice = document.getElementById('quickInfoNotice');
+    if (!notice) return;
+
+    if (notice.style.display === 'none' || window.getComputedStyle(notice).display === 'none') {
+        notice.style.display = 'flex';
+        localStorage.removeItem('hideHelpNotice');
+        showToast('Help guide opened', 'info');
+    } else {
+        notice.style.display = 'none';
+        localStorage.setItem('hideHelpNotice', 'true');
+    }
+}
+
 // =========================================================================
 // Initialization
 // =========================================================================
 document.addEventListener('DOMContentLoaded', async () => {
     initTheme();
     Env.init();
+
+    if (localStorage.getItem('hideHelpNotice') === 'true') {
+        const notice = document.getElementById('quickInfoNotice');
+        if (notice) notice.style.display = 'none';
+    }
 
     // Load Default Catalog from tables.json
     try {

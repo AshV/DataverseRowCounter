@@ -584,13 +584,14 @@ html, body {
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
-    padding: 0.5rem 0.85rem;
+    padding: 0.45rem 0.85rem;
     border-radius: var(--radius-md);
     background-color: var(--bg-accent-subtle);
     border: 1px solid rgba(155, 77, 202, 0.2);
     font-size: 0.82rem;
     color: var(--text-main);
     flex-wrap: wrap;
+    transition: var(--transition);
 }
 
 .notice-left {
@@ -602,6 +603,13 @@ html, body {
 .notice-left svg {
     color: var(--primary);
     flex-shrink: 0;
+}
+
+.notice-right-group {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
 }
 
 .notice-tips {
@@ -621,6 +629,28 @@ html, body {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
     color: var(--text-main);
+}
+
+.notice-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0;
+    line-height: 1;
+}
+
+.notice-close-btn:hover {
+    color: var(--text-main);
+    background-color: rgba(155, 77, 202, 0.15);
 }
 
 /* Tables Horizontal Masonry Layout (Center-Aligned) */

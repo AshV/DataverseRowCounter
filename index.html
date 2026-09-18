@@ -148,18 +148,16 @@
 
                         <!-- Right Toolbar Actions Columns -->
                         <div class="toolbar-actions-group">
-                            <!-- Share Link Button -->
-                            <button id="btnShareLink" class="btn-tool" onclick="shareEnvLink()"
-                                title="Copy sharable studio link with active environment (Ctrl+Shift+S)">
+                            <!-- Help Button -->
+                            <button id="btnHelp" class="btn-tool" onclick="toggleHelpNotice()"
+                                title="Show / hide help guide & shortcuts">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
-                                    <circle cx="18" cy="5" r="3"></circle>
-                                    <circle cx="6" cy="12" r="3"></circle>
-                                    <circle cx="18" cy="19" r="3"></circle>
-                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
                                 </svg>
-                                <span>Share</span>
+                                <span>Help</span>
                             </button>
 
                             <!-- Reset to Defaults Button -->
@@ -207,8 +205,8 @@
 
             <!-- Workspace Content -->
             <div class="workspace-content">
-                <!-- Quick Info Notice -->
-                <div class="quick-info-notice">
+                <!-- Quick Info Notice (Closable) -->
+                <div id="quickInfoNotice" class="quick-info-notice">
                     <div class="notice-left">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
@@ -218,11 +216,15 @@
                         </svg>
                         <span>Click any table card to run <strong>Aggregate Count</strong> via native SSO.</span>
                     </div>
-                    <div class="notice-tips">
-                        <span><kbd>🧮</kbd> Aggregate Count</span>
-                        <span><kbd>📷</kbd> Snapshot (50k+ rows)</span>
-                        <span><kbd>🦚</kbd> Filtered Count</span>
-                        <span><kbd>Ctrl+K</kbd> Environments</span>
+                    <div class="notice-right-group">
+                        <div class="notice-tips">
+                            <span><kbd>🧮</kbd> Aggregate Count</span>
+                            <span><kbd>📷</kbd> Snapshot (50k+ rows)</span>
+                            <span><kbd>🦚</kbd> Filtered Count</span>
+                            <span><kbd>Ctrl+K</kbd> Environments</span>
+                        </div>
+                        <button id="btnCloseNotice" class="notice-close-btn" onclick="closeNotice()"
+                            title="Dismiss help text" aria-label="Dismiss">✕</button>
                     </div>
                 </div>
 
