@@ -413,24 +413,7 @@ function toggleFavorite(entityName, event) {
     }
     localStorage.setItem('drc_favorites', JSON.stringify(Array.from(favoriteTables)));
 
-    if (activeCategory === 'favorites') {
-        renderTags();
-    } else {
-        const card = document.querySelector(`.table-card[data-entity="${entityName}"]`);
-        if (card) {
-            const btn = card.querySelector('.table-fav-btn');
-            if (btn) {
-                const nowFav = favoriteTables.has(entityName);
-                btn.className = `table-fav-btn ${nowFav ? 'active' : ''}`;
-                btn.title = nowFav ? 'Remove from favorites' : 'Mark as favorite';
-                btn.setAttribute('aria-label', nowFav ? 'Remove from favorites' : 'Mark as favorite');
-                const svg = btn.querySelector('svg');
-                if (svg) {
-                    svg.setAttribute('fill', nowFav ? 'currentColor' : 'none');
-                }
-            }
-        }
-    }
+    renderTags();
     renderCategoryPills();
 }
 
@@ -569,6 +552,15 @@ function renderTags() {
         return true;
     });
 
+    // Favorited tables move to the start of the table list
+    filtered.sort((a, b) => {
+        const aFav = favoriteTables.has(a);
+        const bFav = favoriteTables.has(b);
+        if (aFav && !bFav) return -1;
+        if (!aFav && bFav) return 1;
+        return 0;
+    });
+
     if (statsBadge) {
         statsBadge.textContent = `${filtered.length} of ${allEntities.length} tables`;
     }
@@ -599,10 +591,9 @@ function renderTags() {
 
 function createTableCard(entityName) {
     const li = document.createElement('li');
-    li.className = 'table-card';
-    li.dataset.entity = entityName;
-
     const isFav = favoriteTables.has(entityName);
+    li.className = `table-card ${isFav ? 'is-favorite' : ''}`;
+    li.dataset.entity = entityName;
 
     li.innerHTML = `
         <div class="table-card-main">
