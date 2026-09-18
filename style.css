@@ -694,11 +694,18 @@ html, body {
     white-space: nowrap;
 }
 
+.table-card-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    flex-shrink: 0;
+}
+
 /* Clickable table name action button */
 .btn-table-action {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.35rem;
     background: transparent;
     border: none;
     color: var(--text-main);
@@ -718,12 +725,36 @@ html, body {
     background-color: rgba(155, 77, 202, 0.08);
 }
 
-.table-icon-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--primary);
+/* Favorite Star Button */
+.table-fav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--text-subtle);
+    cursor: pointer;
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
     flex-shrink: 0;
+}
+
+.table-fav-btn:hover {
+    color: #f59e0b;
+    background-color: rgba(245, 158, 11, 0.12);
+    transform: scale(1.18);
+}
+
+.table-fav-btn.active {
+    color: #f59e0b;
+}
+
+.table-fav-btn.active svg {
+    fill: #f59e0b;
+    filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.45));
 }
 
 .table-name-text {

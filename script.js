@@ -388,8 +388,51 @@ const Env = {
 let entities = new Set();
 let entityCategories = {}; // { [entity]: 'common' | 'sales' | etc. }
 let defaultEntities = [];
+let favoriteTables = new Set();
+try {
+    const savedFavs = typeof localStorage !== 'undefined' ? localStorage.getItem('drc_favorites') : null;
+    if (savedFavs) favoriteTables = new Set(JSON.parse(savedFavs));
+} catch (e) {
+    console.warn('Could not load favorites from localStorage', e);
+}
 let activeCategory = 'all';
 let tableSearchQuery = '';
+
+function toggleFavorite(entityName, event) {
+    if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+    }
+    const isFav = favoriteTables.has(entityName);
+    if (isFav) {
+        favoriteTables.delete(entityName);
+        showToast(`Removed ${entityName} from favorites`, 'info');
+    } else {
+        favoriteTables.add(entityName);
+        showToast(`Added ${entityName} to favorites`, 'success');
+    }
+    localStorage.setItem('drc_favorites', JSON.stringify(Array.from(favoriteTables)));
+
+    if (activeCategory === 'favorites') {
+        renderTags();
+    } else {
+        const card = document.querySelector(`.table-card[data-entity="${entityName}"]`);
+        if (card) {
+            const btn = card.querySelector('.table-fav-btn');
+            if (btn) {
+                const nowFav = favoriteTables.has(entityName);
+                btn.className = `table-fav-btn ${nowFav ? 'active' : ''}`;
+                btn.title = nowFav ? 'Remove from favorites' : 'Mark as favorite';
+                btn.setAttribute('aria-label', nowFav ? 'Remove from favorites' : 'Mark as favorite');
+                const svg = btn.querySelector('svg');
+                if (svg) {
+                    svg.setAttribute('fill', nowFav ? 'currentColor' : 'none');
+                }
+            }
+        }
+    }
+    renderCategoryPills();
+}
 
 // Core String & Plural Helpers (Preserving Existing Logic)
 function getPlural(entityName) {
@@ -507,9 +550,13 @@ function renderTags() {
     const filtered = allEntities.filter(entity => {
         // Category Filter
         if (activeCategory !== 'all') {
-            const cat = entityCategories[entity] || 'custom';
-            if (activeCategory === 'custom' && cat !== 'custom') return false;
-            if (activeCategory !== 'custom' && cat !== activeCategory) return false;
+            if (activeCategory === 'favorites') {
+                if (!favoriteTables.has(entity)) return false;
+            } else {
+                const cat = entityCategories[entity] || 'custom';
+                if (activeCategory === 'custom' && cat !== 'custom') return false;
+                if (activeCategory !== 'custom' && cat !== activeCategory) return false;
+            }
         }
 
         // Search Filter
@@ -527,13 +574,17 @@ function renderTags() {
     }
 
     if (filtered.length === 0) {
+        const emptyMsg = activeCategory === 'favorites'
+            ? 'No favorite tables marked yet. Click the star icon (☆) on any table card to mark it as favorite.'
+            : `No tables match "${tableSearchQuery || activeCategory}"`;
+
         tagsContainer.innerHTML = `
             <li class="empty-tables-message">
                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--text-subtle)" stroke-width="1.8">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <span>No tables match "${tableSearchQuery || activeCategory}"</span>
+                <span>${emptyMsg}</span>
                 <button class="btn-secondary" onclick="resetFilters()" style="margin-top: 0.5rem;">Reset Filter</button>
             </li>
         `;
@@ -551,12 +602,23 @@ function createTableCard(entityName) {
     li.className = 'table-card';
     li.dataset.entity = entityName;
 
+    const isFav = favoriteTables.has(entityName);
+
     li.innerHTML = `
         <div class="table-card-main">
-            <button class="btn-table-action" onclick="runCount('${entityName}')" title="Click to run Aggregate Count FetchXML">
-                <span class="table-icon-dot"></span>
-                <span class="table-name-text">${entityName}</span>
-            </button>
+            <div class="table-card-left">
+                <button class="table-fav-btn ${isFav ? 'active' : ''}" 
+                    onclick="toggleFavorite('${entityName}', event)" 
+                    title="${isFav ? 'Remove from favorites' : 'Mark as favorite'}" 
+                    aria-label="${isFav ? 'Remove from favorites' : 'Mark as favorite'}">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </button>
+                <button class="btn-table-action" onclick="runCount('${entityName}')" title="Click to run Aggregate Count FetchXML">
+                    <span class="table-name-text">${entityName}</span>
+                </button>
+            </div>
             <div class="table-card-actions">
                 <button class="card-icon-btn" onclick="runCount('${entityName}')" 
                     title="Aggregate Count (FetchXML)" aria-label="Aggregate Count">🧮</button>
@@ -610,7 +672,7 @@ function renderCategoryPills() {
     const container = document.getElementById('categoryPillsRow');
     if (!container) return;
 
-    const standardCategories = ['all', 'common', 'sales', 'service', 'activity', 'system', 'marketing'];
+    const standardCategories = ['all', 'favorites', 'common', 'sales', 'service', 'activity', 'system', 'marketing'];
     const hasCustom = Array.from(entities).some(e => !entityCategories[e] || entityCategories[e] === 'custom');
     if (hasCustom) standardCategories.push('custom');
 
@@ -619,7 +681,12 @@ function renderCategoryPills() {
         const pill = document.createElement('button');
         pill.type = 'button';
         pill.className = `category-pill ${activeCategory === cat ? 'active' : ''}`;
-        pill.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+        if (cat === 'favorites') {
+            const count = favoriteTables.size;
+            pill.innerHTML = `⭐ Favorites ${count > 0 ? `<span class="pill-count">(${count})</span>` : ''}`;
+        } else {
+            pill.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+        }
         pill.onclick = () => {
             activeCategory = cat;
             renderCategoryPills();
@@ -664,7 +731,12 @@ function deleteEntity(entityName, event) {
     if (event) event.stopPropagation();
     if (entities.has(entityName)) {
         entities.delete(entityName);
+        if (favoriteTables.has(entityName)) {
+            favoriteTables.delete(entityName);
+            localStorage.setItem('drc_favorites', JSON.stringify(Array.from(favoriteTables)));
+        }
         updateStorage();
+        renderCategoryPills();
         renderTags();
         showToast(`Removed table "${entityName}"`, 'info');
     }
