@@ -128,35 +128,89 @@ html, body {
     transition: var(--transition);
 }
 
-/* Studio Header & Toolbars */
+/* Studio Header: Two Columns (Brand on Left, Controls Area on Right) */
 .studio-header {
     display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.15rem;
     padding: 0.65rem 1rem;
     background-color: var(--bg-surface);
     border-bottom: 1px solid var(--border-color);
     flex-shrink: 0;
 }
 
-/* Row 1: Environment Manager Strip (Parity with FetchXmlTester & webapi-tester) */
-.env-manager-strip {
+/* Column 1: Top Left Brand Column ("Dataverse Record Counter", each word in a new row) */
+.studio-brand-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-right: 1.15rem;
+    border-right: 1px solid var(--border-color);
+    flex-shrink: 0;
+    min-width: 175px;
+    user-select: none;
+}
+
+.brand-stacked-title {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+    line-height: 1.15;
+    cursor: default;
+}
+
+.brand-word {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
+.brand-word-first {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.brand-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+.brand-word-highlight {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Column 2: Controls Area beside title */
+.toolbar-content-area {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    justify-content: center;
+}
+
+/* Row 1: Environment Bar Row */
+.env-bar-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
-    padding: 0.35rem 0.75rem;
-    background-color: var(--bg-body);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    min-height: 38px;
-    flex-wrap: wrap;
+    min-height: 32px;
 }
 
 .env-status-side {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.55rem;
 }
 
 .env-label {
@@ -171,11 +225,11 @@ html, body {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.28rem 0.7rem;
-    background-color: var(--bg-surface);
+    padding: 0.25rem 0.65rem;
+    background-color: var(--bg-body);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--text-main);
     font-family: 'JetBrains Mono', monospace;
@@ -186,6 +240,32 @@ html, body {
 .env-active-indicator-box:hover {
     border-color: rgba(155, 77, 202, 0.4);
     background-color: var(--bg-input-hover);
+}
+
+/* Row 2: Row with Pills */
+.env-pills-row-container {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 28px;
+    overflow-x: auto;
+}
+
+.env-pills-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.env-pills-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
 }
 
 .status-dot {
@@ -435,53 +515,7 @@ html, body {
     background-color: var(--bg-input-hover);
 }
 
-/* Studio Top Centered Branding */
-.studio-top-brand {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.25rem 0 0.2rem 0;
-    width: 100%;
-    text-align: center;
-}
 
-.brand-logo-studio {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
-    margin: 0 auto;
-    font-size: 1.35rem;
-    font-weight: 800;
-    letter-spacing: -0.3px;
-    white-space: nowrap;
-    cursor: default;
-}
-
-.brand-badge-icon {
-    font-size: 1.55rem;
-    display: inline-flex;
-    align-items: center;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
-}
-
-.brand-title-gradient {
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.brand-subtitle-tag {
-    font-size: 0.7rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    padding: 0.18rem 0.5rem;
-    border-radius: var(--radius-sm);
-    background-color: var(--bg-accent-subtle);
-    color: var(--primary);
-    border: 1px solid rgba(155, 77, 202, 0.25);
-}
 
 /* Category Filter Tabs Bar */
 .category-filter-strip {
@@ -1151,12 +1185,37 @@ html, body {
 }
 
 /* Responsive Breakpoints */
-@media (max-width: 768px) {
+@media (max-width: 860px) {
     .app-container {
         padding: 0.5rem 0.5rem 2rem 0.5rem;
     }
 
-    .env-manager-strip {
+    .studio-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.65rem;
+    }
+
+    .studio-brand-column {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding-right: 0;
+        padding-bottom: 0.45rem;
+        align-items: center;
+        width: 100%;
+    }
+
+    .brand-stacked-title {
+        flex-direction: row;
+        gap: 0.4rem;
+        align-items: center;
+    }
+
+    .brand-word {
+        font-size: 1.1rem;
+    }
+
+    .env-bar-row {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
@@ -1169,10 +1228,6 @@ html, body {
 
     .inputs-bar-group {
         flex-direction: column;
-    }
-
-    .brand-logo-studio {
-        font-size: 1.15rem;
     }
 
     .tables-grid {
