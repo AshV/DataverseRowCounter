@@ -429,20 +429,31 @@ html, body {
     background-color: var(--bg-input-hover);
 }
 
-/* Studio Branding Logo */
+/* Studio Top Centered Branding */
+.studio-top-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0 0.2rem 0;
+    width: 100%;
+    text-align: center;
+}
+
 .brand-logo-studio {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    margin: 0;
-    font-size: 1.05rem;
+    justify-content: center;
+    gap: 0.55rem;
+    margin: 0 auto;
+    font-size: 1.35rem;
     font-weight: 800;
-    letter-spacing: -0.2px;
+    letter-spacing: -0.3px;
     white-space: nowrap;
+    cursor: default;
 }
 
 .brand-badge-icon {
-    font-size: 1.25rem;
+    font-size: 1.55rem;
     display: inline-flex;
     align-items: center;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
@@ -455,15 +466,15 @@ html, body {
 }
 
 .brand-subtitle-tag {
-    font-size: 0.68rem;
-    font-weight: 700;
+    font-size: 0.7rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 0.15rem 0.45rem;
+    letter-spacing: 0.6px;
+    padding: 0.18rem 0.5rem;
     border-radius: var(--radius-sm);
     background-color: var(--bg-accent-subtle);
     color: var(--primary);
-    border: 1px solid rgba(155, 77, 202, 0.2);
+    border: 1px solid rgba(155, 77, 202, 0.25);
 }
 
 /* Category Filter Tabs Bar */
@@ -1150,8 +1161,7 @@ html, body {
     }
 
     .brand-logo-studio {
-        justify-content: center;
-        padding-top: 0.5rem;
+        font-size: 1.15rem;
     }
 
     .tables-grid {
