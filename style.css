@@ -573,21 +573,25 @@ html, body {
     color: var(--text-main);
 }
 
-/* Tables Card Grid */
+/* Tables Horizontal Masonry Layout (Center-Aligned) */
 .tables-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
-    gap: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.65rem;
     list-style: none;
-    padding: 0;
-    margin: 0;
+    padding: 0.25rem 0;
+    margin: 0 auto;
+    width: 100%;
 }
 
-/* Table Card / Item */
+/* Table Card / Box (Horizontal Masonry Item) */
 .table-card {
     position: relative;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
+    flex: 0 0 auto;
     background-color: var(--bg-body);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
@@ -605,17 +609,16 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.4rem 0.55rem;
-    gap: 0.4rem;
+    padding: 0.35rem 0.55rem;
+    gap: 0.45rem;
+    white-space: nowrap;
 }
 
 /* Clickable table name action button */
 .btn-table-action {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    flex: 1;
-    min-width: 0;
     background: transparent;
     border: none;
     color: var(--text-main);
@@ -627,6 +630,7 @@ html, body {
     padding: 0.25rem 0.35rem;
     border-radius: var(--radius-sm);
     transition: var(--transition);
+    white-space: nowrap;
 }
 
 .btn-table-action:hover {
@@ -643,8 +647,6 @@ html, body {
 }
 
 .table-name-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
 }
 
@@ -689,14 +691,16 @@ html, body {
 .options-dropdown {
     position: absolute;
     top: calc(100% + 4px);
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 175px;
+    width: max-content;
     background-color: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
     padding: 0.35rem;
-    z-index: 50;
+    z-index: 100;
     display: none;
     flex-direction: column;
     gap: 0.2rem;
@@ -1145,6 +1149,7 @@ html, body {
     }
 
     .tables-grid {
-        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        justify-content: center;
     }
 }
