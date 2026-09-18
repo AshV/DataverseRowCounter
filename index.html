@@ -90,7 +90,7 @@
 
                 <!-- Column 2: Controls Area beside title (3 rows: Environment bar, Row with pills, Row with text boxes & columns) -->
                 <div class="toolbar-content-area">
-                    <!-- Row 1: Environment Bar Row -->
+                    <!-- Row 1: Unified Environment Manager Bar in 1 Row -->
                     <div class="env-bar-row">
                         <div class="env-status-side">
                             <span class="env-label">Environment:</span>
@@ -101,26 +101,23 @@
                             </div>
                         </div>
 
-                        <button class="btn-secondary" onclick="Env.openModal()"
-                            title="Add or manage Dataverse environments (Ctrl+K)">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                            <span>Add / Manage</span>
-                        </button>
-                    </div>
-
-                    <!-- Row 2: Row with Pills -->
-                    <div class="env-pills-row-container">
-                        <span class="env-pills-label">Environments:</span>
-                        <div id="envPillsRow" class="env-pills-row">
-                            <!-- Injected dynamically by script.js -->
+                        <div class="env-pills-side">
+                            <div id="envPillsRow" class="env-pills-row">
+                                <!-- Injected dynamically by script.js -->
+                            </div>
+                            <button class="btn-secondary" onclick="Env.openModal()"
+                                title="Add or manage Dataverse environments (Ctrl+K)">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <span>Add / Manage</span>
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Row 3: Row with Text Boxes & Columns -->
+                    <!-- Row 2: Search, Add Table & Actions Row -->
                     <div class="toolbar-controls-row">
                         <div class="inputs-bar-group">
                             <!-- Quick Search / Filter Box -->
