@@ -558,6 +558,8 @@ function createTableCard(entityName) {
                 <span class="table-name-text">${entityName}</span>
             </button>
             <div class="table-card-actions">
+                <button class="card-icon-btn" onclick="runCount('${entityName}')" 
+                    title="Aggregate Count (FetchXML)" aria-label="Aggregate Count">🧮</button>
                 <button class="card-icon-btn" onclick="runSnapshotCount('${entityName}')" 
                     title="Snapshot Count (RetrieveTotalRecordCount - fast for 50k+ rows)" aria-label="Snapshot Count">📷</button>
                 <button class="card-icon-btn peacock-btn" onclick="toggleCardOptions('${entityName}', event)" 
