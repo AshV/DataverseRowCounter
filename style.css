@@ -707,6 +707,12 @@ html, body {
     animation: fadeIn 0.15s ease-out;
 }
 
+.table-card.active {
+    z-index: 100;
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
 .table-card.active .options-dropdown {
     display: flex;
 }
